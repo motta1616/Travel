@@ -3,7 +3,7 @@ window.addEventListener('load', () => {
 
     const template = (nombre, capital, poblacion) => {
         return `
-            <div class="card-deck">
+            <div class="col mb-3">
                 <div class="card">
                     <img src="{imagen}" class="card-img-top" alt="...">
                     <div class="card-body">

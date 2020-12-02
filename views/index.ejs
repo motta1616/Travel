@@ -5,22 +5,25 @@
 </head>
 <body>
     <main>
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="jumbotron jumbotron-fluid">
               <h1 class="display-4 text-center"><i class="far fa-paper-plane mr-2"></i>TRAVEL JL</h1>
               <p class="lead text-center">Agencia hotelera.</p>
             </div>
+            <form id="formSearch">
+              <div class="form-group">
+                <label for="inputSearch">Ciudad</label>
+                <input type="text" class="form-control" id="inputSearch">
+                <button type="submit" class="btn btn-primary mt-2" >Enviar</button>
+              </div>
+            </form>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4" id="resp"></div>
+          </div>
         </div>
-        <form id="formSearch">
-            <div class="container">
-                <div class="form-group mx-sm-3 mb-2">
-                    <label for="inputSearch">Ciudad</label>
-                    <input type="text" class="form-control" id="inputSearch">
-                    <button type="submit" class="btn btn-primary mt-2" >Enviar</button>
-                </div>
-            </div>
-        </form>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4" id="resp"></div>
-    </main>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
