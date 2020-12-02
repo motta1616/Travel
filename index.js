@@ -12,6 +12,7 @@ const apiRouters = require('./routers/api') // importa las api
 const app = express() //Llamamos express como una función 
 
 app.use(express.static('public')) // Permite enrutar la carpeta de archivos statico (css,js,imagenes) 
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist')) // Enlazamos la carpeta de bootstrap 
 app.use(express.json()) // Recibira la respuesta del potman del body en json y lo parsea (funcional)
 app.set('view engine', 'ejs')// Habilitamos el view engine, por lo que siempre buscara la carpeta de views
 
@@ -34,4 +35,6 @@ mongoose.connect(process.env.MONGODB_URI, { // process.env = Permite acceder a u
 app.listen(process.env.PORT, () => {
     console.log(`conectado con el puerto ${process.env.PORT}`)
 }) // listen = permite que el servidor escuche las peticione y las responda, Habilitndo un puerto (3000) ya que los puertos nos diferencia los tipos de servicios, este puerto sera por el que repondera mi puerto 
+
+
 

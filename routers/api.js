@@ -12,7 +12,7 @@ router.get('/hotel', async (req, res) => { // Enrutamos nuestra base de datos a 
     }
     catch(e) { // cuando la pagina no es validad la resspuesta entra por el catch
         res.status(500).send({ // muestra el estatus 
-            messager: 'Error inesperado'
+            messager: 'Error inesperado l'
         })
     }
 }) 
@@ -32,7 +32,7 @@ router.get('/hotel/:id', async (req, res) => { // : = es como un varible que se 
     }
     catch(e) {
         res.status(500).send({
-            messager: 'Error inesperado'
+            messager: 'Error inesperado e'
         })
     } 
 })
@@ -46,7 +46,7 @@ router.post('/hotel', async (req, res) => {
     }
     catch(e) {
         res.status(500).send({
-            messager: 'Error inesperado'
+            messager: 'Error inesperado o'
         })
     }
 })
@@ -87,8 +87,9 @@ router.delete('/hoteles/:id', async (req, res) => {
 });
 
 // Ruta por defecto de la API
-router.use((req, res) => {
-	res.sendStatus(404); // Envia el significado del estatus 404 al cliente 
-});
+router.use((req, res) => {// use = Nos permite crear una pagina por defecto para cuando la pagina solicitada por el cliente no exita.
+    //res.status(404).sendFile('./views/404.html', { root: __dirname })
+    res.status(404).render('404') // Envia el estatus 404 y el render me direcciona al archivo 404
+})
 
 module.exports = router
