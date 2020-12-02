@@ -21,10 +21,10 @@ router.get('/example/v1', (req, res) => {
     res.send('Hola mundo 3')
 })
 
-// ruta por defecto 
+// ruta por defecto de la views
 router.use((req, res) => {// use = Nos permite crear una pagina por defecto para cuando la pagina solicitada por el cliente no exita.
     //res.status(404).sendFile('./views/404.html', { root: __dirname })
-    res.status(404).render('404')
+    res.status(404).render('404') // Envia el estatus 404 y el render me direcciona al archivo 404
 }) 
 
 module.exports = router

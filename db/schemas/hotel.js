@@ -3,10 +3,11 @@ const hotelSchema = new momgoose.Schema({ // Permite crear la estructura que ten
     nombre: {
         type: String,
         required: true, // el nombre es requerido de lo contrario emitira error
-        trim: true // Permite eliminar el espacio antes y despues del dato 
+        trim: true // Es un validador que permite eliminar el espacio antes y despues del dato 
     },
     estrellas: {
-        type: Number
+        type: Number,
+        max: 5 // Es un valiador que no permite tener numeros mayores a 5 
     },
     ciudad: {
         type: String
