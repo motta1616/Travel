@@ -22,7 +22,7 @@ window.addEventListener('load', () => {
     form.addEventListener('submit', (event) => {
         event.preventDefault()
         resp.innerHTML = ''
-        fetch('http://localhost:3000/api/hotel/' + input.value)
+        fetch('/api/hotel/' + input.value)
         .then((res) => {
             return res.json()
         })

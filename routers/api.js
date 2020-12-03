@@ -21,7 +21,8 @@ router.get('/hotel', async (req, res) => { // Enrutamos nuestra base de datos a 
 router.get('/hotel/:id', async (req, res) => { // : = es como un varible que se guardara en id 
     try {
         const id = req.params.id // Resive el id por el parametro y lo amacena en la variable  
-        const hotel = await hotelModel.findById(id) // Permite buscar el hotel con el id que se paso 
+        
+        const hotel = await hotelModel.find({$or:[{nombre:{'$regex':id}}, {ciudad:id}]}) // Permite buscar el hotel con el id que se paso 
 
         if(!hotel) {
             res.status(404).send()
@@ -32,7 +33,7 @@ router.get('/hotel/:id', async (req, res) => { // : = es como un varible que se 
     }
     catch(e) {
         res.status(500).send({
-            messager: 'Error inesperado e'
+            messager: 'Error inesperado e '+ e
         })
     } 
 })
