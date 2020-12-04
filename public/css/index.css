@@ -1,0 +1,26 @@
+.hero {
+    background-image: url(/img/encabezado.jpg); /* background-image= permite importa una imagen de fondo*/
+     /* height: 100vh= permite tomar el 100% de la ventana*/
+    background-position: top center;/*background-position= permite posicinar la imagen. top center= permite centrar la imagen */
+    background-size: cover; /*background-size: cover= me permite ajustar mejor la imagen y evita que se repita*/
+    position: relative;
+}
+
+.hero::before {
+    content:'';
+	position: absolute;
+        top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0.5);
+}
+
+.barra {
+    background-color: white;
+}
+
+.barra p {
+    text-align: center;
+    margin-top: 5px;
+}

@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
         return `
             <div class="col mb-3">
                 <div class="card">
-                    <img src="{imagen}" class="card-img-top" alt="...">
+                    <img  src="/img/hotel.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">${nombre}</h5>
                         <p class="card-text">${capital}</p>
@@ -16,13 +16,17 @@ window.addEventListener('load', () => {
     }
    
     const input = document.getElementById('inputSearch')
+    const ciudad = document.getElementById('inputCiudad')
+    const estrellas = document.getElementById('inputEstre')
     const form = document.getElementById('formSearch')
     
 
     form.addEventListener('submit', (event) => {
         event.preventDefault()
         resp.innerHTML = ''
-        fetch('/api/hotel/' + input.value)
+        console.log(ciudad.value, estrellas.value)
+        //fetch(`/api/hotel/${input.value}/${ciudad.value}/${estrellas.value}`)
+        fetch(`/api/hotel?name=${input.value}&city=${ciudad.value}&star=${estrellas.value}`)
         .then((res) => {
             return res.json()
         })
@@ -36,7 +40,7 @@ window.addEventListener('load', () => {
             });
         })
         .catch((e) => {
-            
+            console.log(e)
         })
     })
 })

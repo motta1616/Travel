@@ -5,7 +5,7 @@ const hotelModel = require('../db/models/hotel') // Importa el modelo de de la c
 // Rutas de la API
 
 //  GET nos permite obtener la respuesta de la API
-router.get('/hotel', async (req, res) => { // Enrutamos nuestra base de datos a una web
+/* router.get('/hotel', async (req, res) => { // Enrutamos nuestra base de datos a una web
     try {
         const Hoteles = await hotelModel.find({}) //find busca todos los hoteles y los almacena en un objeto 
         res.send(Hoteles)// send permite enviar la respuesta al cliente 
@@ -15,14 +15,15 @@ router.get('/hotel', async (req, res) => { // Enrutamos nuestra base de datos a 
             messager: 'Error inesperado l'
         })
     }
-}) 
+}) */ 
 
 // busca los hoteles por el id
-router.get('/hotel/:id', async (req, res) => { // : = es como un varible que se guardara en id 
+router.get('/hotel', async (req, res) => { // : = es como un varible que se guardara en id 
     try {
-        const id = req.params.id // Resive el id por el parametro y lo amacena en la variable  
-        
-        const hotel = await hotelModel.find({$or:[{nombre:{'$regex':id}}, {ciudad:id}]}) // Permite buscar el hotel con el id que se paso 
+        const name = req.query.name // Resive el id por el parametro y lo amacena en la variable  
+        const city = req.query.city
+        const star = req.query.star
+        const hotel = await hotelModel.find({$or:[{nombre:{$regex:name,$options:'i'}}, {$and:[{ciudad:city},{estrellas:star}]}]}) // Permite buscar el hotel con el id que se paso. $regex = Permite buscar la mitad del nombre
 
         if(!hotel) {
             res.status(404).send()
