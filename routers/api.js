@@ -5,39 +5,54 @@ const hotelModel = require('../db/models/hotel') // Importa el modelo de de la c
 // Rutas de la API
 
 //  GET nos permite obtener la respuesta de la API
-/router.get('/hotel', async (req, res) => { // Enrutamos nuestra base de datos a una web
-    try {
-        const Hoteles = await hotelModel.find({}) //find busca todos los hoteles y los almacena en un objeto 
-        res.send(Hoteles)// send permite enviar la respuesta al cliente 
-    }
-    catch(e) { // cuando la pagina no es validad la resspuesta entra por el catch
-        res.status(500).send({ // muestra el estatus 
-            messager: 'Error inesperado l'
-        })
-    }
-})  
-
 // busca los hoteles por el id
+  
 router.get('/hotel', async (req, res) => { // : = es como un varible que se guardara en id 
-    try {
-        const name = req.query.name // Resive el id por el parametro y lo amacena en la variable  
-        const city = req.query.city
-        const star = req.query.star
-        const hotel = await hotelModel.find({$or:[{nombre:{$regex:name,$options:'i'}}, {$and:[{ciudad:city},{estrellas:star}]}]}) // Permite buscar el hotel con el id que se paso. $regex = Permite buscar la mitad del nombre
-
-        if(!hotel) {
-            res.status(404).send()
+    const name = req.query.name // Resive el id por el parametro y lo amacena en la variable
+    const city = req.query.city
+    const star = req.query.star
+   
+    if (!name && !city && !star) {
+        try {
+            const Hoteles = await hotelModel.find({}) //find busca todos los hoteles y los almacena en un objeto 
+            res.send(Hoteles) // send permite enviar la respuesta al cliente 
+        } catch (e) { // cuando la pagina no es validad la resspuesta entra por el catch
+            res.status(500).send({ // muestra el estatus 
+                messager: 'Error inesperado l'
+            })
         }
-        else {
-            res.status(200).send(hotel)
+    } else {
+        try {
+            const hotel = await hotelModel.find({
+                $or: [{
+                    nombre: {
+                        $regex: name,
+                        $options: 'i'
+                    }
+                }, {
+                    $or: [{
+                        ciudad: city
+                    }, {
+                        estrellas: star
+                    }]
+                }]
+            }) // Permite buscar el hotel con el id que se paso. $regex = Permite buscar la mitad del nombre
+
+
+            if (!hotel) {
+                res.status(404).send()
+            } else {
+                res.status(200).send(hotel)
+            }
+        } catch (e) {
+            res.status(500).send({
+                messager: 'Error inesperado e ' + e
+            })
         }
     }
-    catch(e) {
-        res.status(500).send({
-            messager: 'Error inesperado e '+ e
-        })
-    } 
 })
+
+
 
 //  POST = permite crear un nuevo hotel y almacenarlo en la base de datos 
 router.post('/hotel', async (req, res) => {  
