@@ -2,6 +2,25 @@
 window.addEventListener('load', () => {
 
     const template = (foto, nombre, ciudad, estrellas, parqueadero, wifi, precio) => {
+        let estrellitas = 0
+        switch (estrellas) {
+
+            case 1:
+                estrellitas = '★'
+                break
+            case 2:
+                estrellitas = '★★'
+                break
+            case 3:
+                estrellitas = '★★★'
+                break
+            case 4:
+                estrellitas = '★★★★'
+                break
+            case 5:
+                estrellitas = '★★★★★'
+                break
+        }
         return `
             <div class="col mb-3">
                 <div class="card">
@@ -9,7 +28,7 @@ window.addEventListener('load', () => {
                     <div class="card-body">
                         <h5 class="card-title">${nombre}</h5>
                         <p class="card-text font-weight-bold">Ciudad:  <span class="font-weight-normal"> ${ciudad}</span></p>
-                        <p class="card-text font-weight-bold">Estrellas:  <span class="font-weight-normal"> ${estrellas}</span></p>
+                        <p class="card-text font-weight-bold">Estrellas: <span style="color:#FEBB02">${estrellitas}</p>
                         <p class="card-text font-weight-bold">Parqueadero : <i class="fa fa-car"></i>  ${parqueadero ? `  <i class="fa">&#xf00c</i>` : `  <i class="fa">&#xf00d</i>`}</p>
                         <p class="card-text font-weight-bold">Wifi:  <i class="fa fa-wifi" aria-hidden="true"></i>${wifi ? `  <i class="fa">&#xf00c</i>` : `  <i class="fa">&#xf00d</i>`}</p>
                         <p class="card-text font-weight-bold text-warning">Precio: <span class="font-weight-normal text-dark">$ ${precio} *Prom/N.</span></p>
