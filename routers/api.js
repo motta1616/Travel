@@ -2,37 +2,10 @@ const express = require('express') // Importamos el express
 const router = new express.Router() // Router que permite agrupar 
 const hotelModel = require('../db/models/hotel') // Importa el modelo de de la coleccion junto con la estructura
 
-// Rutas de la API
+////////////////////////////// RUTAS API /////////////////////////////////////////
 
 //  GET nos permite obtener la respuesta de la API
   
-// busca los hoteles por el id
-/* router.get('/hotel', async (req, res) => { // : = es como un varible que se guardara en id 
-    try {
-        const name = req.query.name // Resive el id por el parametro y lo amacena en la variable  
-        const city = req.query.city
-        const star = req.query.star
-        //const hotel = await hotelModel.find({$or:[{nombre:{$regex:name,$options:'i'}}, {$and:[{ciudad:city},{estrellas:star}]}]}) // Permite buscar el hotel con el id que se paso. $regex = Permite buscar la mitad del nombre
-        if (name && city && star) {
-            const hotel =await hotelModel.find({$and:[{nombre:{$regex:name,$options:'i'}}, {ciudad:city}, {estrellas:star}]})
-        }
-        if(!hotel) {
-            res.status(404).send()
-        }
-        else {
-            res.status(200).send(hotel)
-        }
-    }
-    catch(e) {
-        res.status(500).send({
-            messager: 'Error inesperado e '+ e
-        })
-    } 
-}) */
-
-
-////////////////////////////////////////////////////////////////////////////
-
 router.get('/hotel', async (req, res) => { // : = es como un varible que se guardara en id 
     const name = req.query.name // Resive el id por el parametro y lo amacena en la variable
     const city = req.query.city
@@ -109,9 +82,8 @@ router.get('/hotel', async (req, res) => { // : = es como un varible que se guar
     }
 })
 
-//////////////////////////////////////////////////////////////////////////////
-
 //  POST = permite crear un nuevo hotel y almacenarlo en la base de datos 
+
 router.post('/hotel', async (req, res) => {  
     try {
         const dataHotel = req.body; // req.body = es donde llegara la informacion del cliente agregando un nuevo hotel por medio del postman
@@ -124,6 +96,8 @@ router.post('/hotel', async (req, res) => {
         })
     }
 })
+
+// PATCH = Permite modificar los hotel y actualizarlos en la base de datos 
 
 router.patch('/hoteles/:id', async (req, res) => {
 	try {
@@ -143,6 +117,8 @@ router.patch('/hoteles/:id', async (req, res) => {
     	res.status(500).send(e);
 	}
 });
+
+// DELETE = Permite borrar los hotel de la base de datos 
 
 router.delete('/hoteles/:id', async (req, res) => {
 	try {

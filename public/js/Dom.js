@@ -8,11 +8,11 @@ window.addEventListener('load', () => {
                     <img  src="${foto}" class="card-img-top imag" alt="img hotel">
                     <div class="card-body">
                         <h5 class="card-title">${nombre}</h5>
-                        <p class="card-text">Ciudad: ${ciudad}</p>
-                        <p class="card-text">Estrellas: ${estrellas}</p>
-                        <p class="card-text">Parqueadero: ${parqueadero ? `<i class="fa">&#xf00c</i>` : `<i class="fa">&#xf00d</i>`}</p>
-                        <p class="card-text">Wifi: ${wifi ? `<i class="fa">&#xf00c</i>` : `<i class="fa">&#xf00d</i>`}</p>
-                        <p class="card-text">Precio: $${precio} </p>
+                        <p class="card-text font-weight-bold">Ciudad:  <span class="font-weight-normal"> ${ciudad}</span></p>
+                        <p class="card-text font-weight-bold">Estrellas:  <span class="font-weight-normal"> ${estrellas}</span></p>
+                        <p class="card-text font-weight-bold">Parqueadero : <i class="fa fa-car"></i>  ${parqueadero ? `  <i class="fa">&#xf00c</i>` : `  <i class="fa">&#xf00d</i>`}</p>
+                        <p class="card-text font-weight-bold">Wifi:  <i class="fa fa-wifi" aria-hidden="true"></i>${wifi ? `  <i class="fa">&#xf00c</i>` : `  <i class="fa">&#xf00d</i>`}</p>
+                        <p class="card-text font-weight-bold text-warning">Precio: <span class="font-weight-normal text-dark">$ ${precio} *Prom/N.</span></p>
                     </div>
                 </div> 
             </div>`
@@ -38,7 +38,6 @@ window.addEventListener('load', () => {
             return res.json()
         })
         .then((data) => {
-            console.log(data)
             data.forEach(element => {
                 const card = template(element.fotoURL, element.nombre, element.ciudad, element.estrellas, element.parqueadero, element.wifi, element.precio)
                 

@@ -11,6 +11,18 @@ const hotelSchema = new momgoose.Schema({ // Permite crear la estructura que ten
     },
     ciudad: {
         type: String
+    },
+    parqueadero: {
+        type: Boolean
+    },
+    wifi: {
+        type: Boolean
+    },
+    precio: {
+        type: Number 
+    },
+    fotoURL: {
+        type: String
     }
 })
 

@@ -28,3 +28,11 @@
 .imag {
     height: 180px;
 }
+
+.card-title {
+    margin-bottom: 20px;
+}
+
+.card-text {
+    margin-bottom: 10px;
+}
