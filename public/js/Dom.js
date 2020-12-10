@@ -27,8 +27,11 @@ window.addEventListener('load', () => {
     form.addEventListener('submit', (event) => {
         event.preventDefault()
         resp.innerHTML = ''
-        console.log(ciudad.value, estrellas.value)
+        if (!input.value && !ciudad.value && !estrellas.value) {
+            alert('Debe ingresar alguna opción')
+        }
         const name = input.value ? input.value : "-1"
+        
         //fetch(`/api/hotel/${input.value}/${ciudad.value}/${estrellas.value}`)
         fetch(`/api/hotel?name=${name}&city=${ciudad.value}&star=${estrellas.value}`)
         .then((res) => {

@@ -5,54 +5,111 @@ const hotelModel = require('../db/models/hotel') // Importa el modelo de de la c
 // Rutas de la API
 
 //  GET nos permite obtener la respuesta de la API
-// busca los hoteles por el id
   
+// busca los hoteles por el id
+/* router.get('/hotel', async (req, res) => { // : = es como un varible que se guardara en id 
+    try {
+        const name = req.query.name // Resive el id por el parametro y lo amacena en la variable  
+        const city = req.query.city
+        const star = req.query.star
+        //const hotel = await hotelModel.find({$or:[{nombre:{$regex:name,$options:'i'}}, {$and:[{ciudad:city},{estrellas:star}]}]}) // Permite buscar el hotel con el id que se paso. $regex = Permite buscar la mitad del nombre
+        if (name && city && star) {
+            const hotel =await hotelModel.find({$and:[{nombre:{$regex:name,$options:'i'}}, {ciudad:city}, {estrellas:star}]})
+        }
+        if(!hotel) {
+            res.status(404).send()
+        }
+        else {
+            res.status(200).send(hotel)
+        }
+    }
+    catch(e) {
+        res.status(500).send({
+            messager: 'Error inesperado e '+ e
+        })
+    } 
+}) */
+
+
+////////////////////////////////////////////////////////////////////////////
+
 router.get('/hotel', async (req, res) => { // : = es como un varible que se guardara en id 
     const name = req.query.name // Resive el id por el parametro y lo amacena en la variable
     const city = req.query.city
     const star = req.query.star
    
-    if (!name && !city && !star) {
+    if (name != '-1' && city && star) {
         try {
-            const Hoteles = await hotelModel.find({}) //find busca todos los hoteles y los almacena en un objeto 
+            const Hoteles = await hotelModel.find({$and:[{nombre:{$regex:name,$options:'i'}},{ciudad:city},{estrellas:star}]}) //find busca todos los hoteles y los almacena en un objeto 
             res.send(Hoteles) // send permite enviar la respuesta al cliente 
         } catch (e) { // cuando la pagina no es validad la resspuesta entra por el catch
             res.status(500).send({ // muestra el estatus 
                 messager: 'Error inesperado l'
             })
         }
-    } else {
+    }else if ( name === '-1' && city && star) {
         try {
-            const hotel = await hotelModel.find({
-                $or: [{
-                    nombre: {
-                        $regex: name,
-                        $options: 'i'
-                    }
-                }, {
-                    $or: [{
-                        ciudad: city
-                    }, {
-                        estrellas: star
-                    }]
-                }]
-            }) // Permite buscar el hotel con el id que se paso. $regex = Permite buscar la mitad del nombre
-
-
-            if (!hotel) {
-                res.status(404).send()
-            } else {
-                res.status(200).send(hotel)
-            }
-        } catch (e) {
-            res.status(500).send({
-                messager: 'Error inesperado e ' + e
+            const Hoteles = await hotelModel.find({$and:[{ciudad:city},{estrellas:star}]}) //find busca todos los hoteles y los almacena en un objeto 
+            res.send(Hoteles) // send permite enviar la respuesta al cliente 
+        } catch (e) { // cuando la pagina no es validad la resspuesta entra por el catch
+            res.status(500).send({ // muestra el estatus 
+                messager: 'Error inesperado l'
+            })
+        }
+    } 
+    else if ( name != '-1' && !city && star) {
+        try {
+            const Hoteles = await hotelModel.find({$and:[{nombre:{$regex:name,$options:'i'}},{estrellas:star}]}) //find busca todos los hoteles y los almacena en un objeto 
+            res.send(Hoteles) // send permite enviar la respuesta al cliente 
+        } catch (e) { // cuando la pagina no es validad la resspuesta entra por el catch
+            res.status(500).send({ // muestra el estatus 
+                messager: 'Error inesperado l'
+            })
+        }
+    }  
+    else if ( name != '-1' && city && !star) {
+        try {
+            const Hoteles = await hotelModel.find({$and:[{nombre:{$regex:name,$options:'i'}},{ciudad:city}]}) //find busca todos los hoteles y los almacena en un objeto 
+            res.send(Hoteles) // send permite enviar la respuesta al cliente 
+        } catch (e) { // cuando la pagina no es validad la resspuesta entra por el catch
+            res.status(500).send({ // muestra el estatus 
+                messager: 'Error inesperado l'
+            })
+        }
+    }
+    else if ( name != '-1' && !city && !star) {
+        try {
+            const Hoteles = await hotelModel.find({nombre:{$regex:name,$options:'i'}}) //find busca todos los hoteles y los almacena en un objeto 
+            res.send(Hoteles) // send permite enviar la respuesta al cliente 
+        } catch (e) { // cuando la pagina no es validad la resspuesta entra por el catch
+            res.status(500).send({ // muestra el estatus 
+                messager: 'Error inesperado l'
+            })
+        }
+    }
+    else if ( name == '-1' && city && !star) {
+        try {
+            const Hoteles = await hotelModel.find({ciudad:city}) //find busca todos los hoteles y los almacena en un objeto 
+            res.send(Hoteles) // send permite enviar la respuesta al cliente 
+        } catch (e) { // cuando la pagina no es validad la resspuesta entra por el catch
+            res.status(500).send({ // muestra el estatus 
+                messager: 'Error inesperado l'
+            })
+        }
+    }
+    else if ( name == '-1' && !city && star) {
+        try {
+            const Hoteles = await hotelModel.find({estrellas:star}) //find busca todos los hoteles y los almacena en un objeto 
+            res.send(Hoteles) // send permite enviar la respuesta al cliente 
+        } catch (e) { // cuando la pagina no es validad la resspuesta entra por el catch
+            res.status(500).send({ // muestra el estatus 
+                messager: 'Error inesperado l'
             })
         }
     }
 })
 
-
+//////////////////////////////////////////////////////////////////////////////
 
 //  POST = permite crear un nuevo hotel y almacenarlo en la base de datos 
 router.post('/hotel', async (req, res) => {  
